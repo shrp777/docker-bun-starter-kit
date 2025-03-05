@@ -1,0 +1,22 @@
+services:
+  app:
+    #restart: always #activer uniquement en production
+    build:
+      context: app
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/app
+    ports:
+      - 3333:3000
+    env_file:
+      - ./app/.env
+    networks:
+      - shrp
+    develop:
+      watch:
+        - path: ./app
+          action: rebuild
+
+networks:
+  shrp:
+    driver: bridge
